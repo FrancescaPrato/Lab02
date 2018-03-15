@@ -1,3 +1,4 @@
+
 package it.polito.tdp.alien;
 
 /**
@@ -54,7 +55,8 @@ public class AlienController {
     	String array[] =testo.split(" ");
     	if(testo.contains("0")||testo.contains("1")||testo.contains("2")||testo.contains("3")||testo.contains("4")||testo.contains("5")||testo.contains("6")||testo.contains("7")||testo.contains("8")||testo.contains("9"))
     	{
-    		txtResult.setText("Stringa alfanumerica non valida!!");
+    		txtResult.setText(txtResult.getText()+"Stringa alfanumerica non valida!!\n");
+    		txtWord.clear();
     	}
     	else {
 		    	if(testo.contains(" ")) {
@@ -67,20 +69,34 @@ public class AlienController {
 		    		
 		    		dizionario.add(parola);
 		    		txtWord.clear();
-		    		txtResult.setText("La traduzione di : "+parola.getParola()+" è "+parola.getTraduzione()+"\n");
+		    		txtResult.setText(txtResult.getText()+"La traduzione di : "+parola.getParola()+" è "+parola.getTraduzione()+"\n");
 		    	}
 		    	else
 		    	{
 		    		
 		    		for(paroleAliene p : dizionario) {
 		    			if(p.getParola().compareTo(testo)==0) {
-		    				System.out.println("ciao");
-		    				
-		    				txtResult.setText("La traduzione di : "+p.getParola()+" è "+p.getTraduzione()+"\n");
+		    				txtResult.setText(txtResult.getText()+"La traduzione di : "+p.getParola()+" è "+p.getTraduzione()+"\n");
+		    				txtWord.clear();
 		    				return;
 		    			}
+		    			
+		    			if(testo.contains("?")) {
+		    				int i=testo.indexOf("?");
+		    				for(paroleAliene pr : dizionario) {
+		    					String parola =  pr.getParola().substring(0, i)+"?"+pr.getParola().substring(i+1);
+				    			if(parola.compareTo(testo)==0) {
+				    				txtWord.clear();
+				    				txtResult.setText(txtResult.getText()+"La traduzione di : "+pr.getParola()+" è "+pr.getTraduzione()+"\n");
+				    				return;
+				    				}
+				    				
+				    			}
+		    				
+		    			}
 		    		}
-		    		txtResult.setText("La traduzione di : "+testo+" non è presente ");
+		    		txtWord.clear();
+		    		txtResult.setText(txtResult.getText()+"\nLa traduzione di : "+testo+" non è presente ");
 		    	}
     	}
     	    	
